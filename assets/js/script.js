@@ -1,5 +1,5 @@
 
-fetch("https://api.watchmode.com/v1/sources/?apiKey=kzLgYLX7rWTr6JhDKvxp1yGMscrDZCCQM81OApCG")
+fetch("https://api.watchmode.com/v1/list-titles/?apiKey=kzLgYLX7rWTr6JhDKvxp1yGMscrDZCCQM81OApCG&source_ids=203&tmdb_type=movie")
 .then(function (response) {
     if (response.ok) {
         return response.json()
@@ -7,6 +7,7 @@ fetch("https://api.watchmode.com/v1/sources/?apiKey=kzLgYLX7rWTr6JhDKvxp1yGMscrD
 })
 .then(function(body) {
     console.log(body)
+    
 })
 
 fetch("https://app.ticketmaster.com/discovery/v2/suggest?segmentId=KZFzniwnSyZfZ7v7nn&apikey=YxRbBqJ0OORNTA5ARkyi5R1uZSTtZHdH")
@@ -17,4 +18,5 @@ fetch("https://app.ticketmaster.com/discovery/v2/suggest?segmentId=KZFzniwnSyZfZ
 })
 .then(function(body) {
     console.log(body)
+    
 })
