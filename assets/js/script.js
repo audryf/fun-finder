@@ -1,10 +1,12 @@
 // Variables
+var buttonsEl = document.querySelector("#button-div");
 var homeBtnEl = document.querySelector("#home");
 var outBtnEl = document.querySelector("#out");
+var displayEl = document.querySelector("#display-choice");
 
 // create a function to fetch staying home data for button click
 var homeClickHandler = function () {
-
+	
 	// create a random number between 1 and 9 to use as random page generated in watchmode data (that's how many pages are shown with this type=movies)
 	var randomPage = Math.floor((Math.random() * 9) + 1)
 
@@ -40,11 +42,50 @@ var homeClickHandler = function () {
 				year: titleBody.year
 			}
 			console.log(movieInfo);
+
+			displayEl.textContent = ""
+
+			// display random choice to html page
+			var chooseAgainEl = document.createElement("p");
+			chooseAgainEl.textContent = "(Click again for another option.)";
+			displayEl.appendChild(chooseAgainEl);
+
+			var netflixChoiceEl = document.createElement("h1");
+			netflixChoiceEl.textContent = "Watch this movie on Netflix!"
+			displayEl.appendChild(netflixChoiceEl); 
+
+			var titleEl = document.createElement("h2");
+			titleEl.textContent = movieInfo.title;
+			displayEl.appendChild(titleEl);
+
+			var ratingEl = document.createElement("span");
+			if (!movieInfo.rating) {
+				ratingEl.textContent = "Rated: NR";
+			} else {
+				ratingEl.textContent = `Rated: ${movieInfo.rating}`;
+			}
+			displayEl.appendChild(ratingEl);
+
+			var userRatingEl = document.createElement("div");
+			userRatingEl.textContent = `User Rating: ${movieInfo.userRating}`
+			displayEl.appendChild(userRatingEl);
+
+			var runtimeEl = document.createElement("div");
+			runtimeEl.textContent = `Runtime: ${movieInfo.runtime} minutes`;
+			displayEl.appendChild(runtimeEl);
+
+			var releaseDateEl = document.createElement("div");
+			releaseDateEl.textContent = `Released: ${movieInfo.year}`;
+			displayEl.appendChild(releaseDateEl);
+
+			var descriptionLabel = document.createElement("h3");
+			descriptionLabel.textContent = "Movie Summary:";
+			displayEl.appendChild(descriptionLabel);
+
+			var descriptionEl = document.createElement("p");
+			descriptionEl.textContent = movieInfo.description;
+			displayEl.appendChild(descriptionEl);
 		})
-	// display random choice to html page
-
-
-
 }
 
 
