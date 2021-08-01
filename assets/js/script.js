@@ -15,7 +15,7 @@ fetch("https://api.watchmode.com/v1/list-titles/?apiKey=kzLgYLX7rWTr6JhDKvxp1yGM
 		var movieTitleId = body.titles[Math.floor(Math.random() * 250)].id;
 
 		// fetch title details for random movie using 
-		return fetch(`https://api.watchmode.com/v1/title/"${movieTitleId}/details/?apiKey=kzLgYLX7rWTr6JhDKvxp1yGMscrDZCCQM81OApCG`)
+		return fetch(`https://api.watchmode.com/v1/title/${movieTitleId}/details/?apiKey=kzLgYLX7rWTr6JhDKvxp1yGMscrDZCCQM81OApCG`)
 
 			.then(function (titleResponse) {
 				if (titleResponse.ok) {
