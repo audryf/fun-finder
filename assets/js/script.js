@@ -6,7 +6,7 @@ var displayEl = document.querySelector("#display-choice");
 
 // create a function to fetch staying home data for button click
 var homeClickHandler = function () {
-	
+
 	// create a random number between 1 and 9 to use as random page generated in watchmode data (that's how many pages are shown with this type=movies)
 	var randomPage = Math.floor((Math.random() * 9) + 1)
 
@@ -52,7 +52,7 @@ var homeClickHandler = function () {
 
 			var netflixChoiceEl = document.createElement("h1");
 			netflixChoiceEl.textContent = "Watch this movie on Netflix!"
-			displayEl.appendChild(netflixChoiceEl); 
+			displayEl.appendChild(netflixChoiceEl);
 
 			var titleEl = document.createElement("h2");
 			titleEl.textContent = movieInfo.title;
@@ -120,11 +120,42 @@ var goingOutClickHandler = function () {
 					url: randomEvent.url,
 					startDate: randomEvent.dates.start.localDate,
 					startTime: randomEvent.dates.start.localTime,
-					image: randomEvent.images[0]
+					image: JSON.stringify(randomEvent.images[0])
 				}
 				console.log(eventInfo);
-				// display random choice to html page
 
+				displayEl.textContent = ""
+
+				// display random choice to html page
+				var chooseAgainEl = document.createElement("p");
+				chooseAgainEl.textContent = "(Click again for another option.)";
+				displayEl.appendChild(chooseAgainEl);
+
+				var eventChoiceEl = document.createElement("h1");
+				eventChoiceEl.textContent = "Plan your next outing!";
+				displayEl.appendChild(eventChoiceEl);
+
+				var titleEl = document.createElement("h2");
+				titleEl.textContent = eventInfo.name;
+				displayEl.appendChild(titleEl);
+
+				// NEED TO GET JUST IMAGE URL FROM DATA TO USE
+				// var imageEl = document.createElement("img");
+				// imageEl.setAttribute("src", eventInfo.image);
+				// displayEl.appendChild(imageEl);
+
+				var startDateEl = document.createElement("p");
+				startDateEl.textContent = `Date: ${eventInfo.startDate}`;
+				displayEl.appendChild(startDateEl);
+				
+				var startTimeEl = document.createElement("p");
+				startTimeEl.textContent = `Start Time: ${eventInfo.startTime}`;
+				displayEl.appendChild(startTimeEl);
+				
+				var urlEl = document.createElement("a");
+				urlEl.textContent = "Click here to buy tickets now!";
+				urlEl.setAttribute("href", eventInfo.url);
+				displayEl.appendChild(urlEl);
 			})
 
 	})
