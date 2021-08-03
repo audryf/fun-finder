@@ -11,7 +11,7 @@ var homeClickHandler = function () {
 	var randomPage = Math.floor((Math.random() * 9) + 1)
 
 	// Get data from watchmode for id of random movie
-	fetch("https://api.watchmode.com/v1/list-titles/?apiKey=kzLgYLX7rWTr6JhDKvxp1yGMscrDZCCQM81OApCG&source_ids=203&types=movie&page=" + randomPage)
+	fetch(`https://api.watchmode.com/v1/list-titles/?apiKey=kzLgYLX7rWTr6JhDKvxp1yGMscrDZCCQM81OApCG&source_ids=203&types=movie&page=${randomPage}`)
 		.then(function (response) {
 			if (response.ok) {
 				return response.json()
@@ -119,8 +119,7 @@ var goingOutClickHandler = function () {
 					name: randomEvent.name,
 					url: randomEvent.url,
 					startDate: randomEvent.dates.start.localDate,
-					startTime: randomEvent.dates.start.localTime,
-					image: JSON.stringify(randomEvent.images[0])
+					startTime: randomEvent.dates.start.localTime
 				}
 				console.log(eventInfo);
 
@@ -158,6 +157,8 @@ var goingOutClickHandler = function () {
 				displayEl.appendChild(urlEl);
 			})
 
+	}, function error(err) {
+		swal("Oops!", "You must share your location for this app to work!", "error");
 	})
 
 
