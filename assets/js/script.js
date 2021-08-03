@@ -11,6 +11,7 @@ var homeClickHandler = function () {
 	var randomPage = Math.floor((Math.random() * 9) + 1)
 
 	// Get data from watchmode for id of random movie
+	//  "Streaming data powered by Watchmode.com"
 	fetch(`https://api.watchmode.com/v1/list-titles/?apiKey=kzLgYLX7rWTr6JhDKvxp1yGMscrDZCCQM81OApCG&source_ids=203&types=movie&page=${randomPage}`)
 		.then(function (response) {
 			if (response.ok) {
