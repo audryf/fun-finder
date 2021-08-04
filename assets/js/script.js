@@ -3,7 +3,92 @@ var buttonsEl = document.querySelector("#button-div");
 var homeBtnEl = document.querySelector("#home");
 var outBtnEl = document.querySelector("#out");
 var displayEl = document.querySelector("#display-choice");
-
+function renderLastChoice(){
+    var choiceLs= localStorage.getItem('choice');
+    choiceLs= parseInt(JSON.parse(choiceLs));
+    console.log(choiceLs);
+    if(choiceLs === 1){
+        var movieInfo= localStorage.getItem('movieInfoLs');
+        movieInfo= JSON.parse(movieInfo);
+        var chooseAgainEl = document.createElement("p");
+            chooseAgainEl.textContent = "(Click again for another option.)";
+            displayEl.appendChild(chooseAgainEl);
+ 
+            var netflixChoiceEl = document.createElement("h1");
+            netflixChoiceEl.textContent = "Watch this movie on Netflix!"
+            displayEl.appendChild(netflixChoiceEl);
+ 
+            var titleEl = document.createElement("h2");
+            titleEl.textContent = movieInfo.title;
+            displayEl.appendChild(titleEl);
+ 
+            var ratingEl = document.createElement("span");
+            if (!movieInfo.rating) {
+                ratingEl.textContent = "Rated: NR";
+            } else {
+                ratingEl.textContent = `Rated: ${movieInfo.rating}`;
+            }
+            displayEl.appendChild(ratingEl);
+ 
+            var userRatingEl = document.createElement("div");
+            userRatingEl.textContent = `User Rating: ${movieInfo.userRating}`
+            displayEl.appendChild(userRatingEl);
+ 
+            var runtimeEl = document.createElement("div");
+            runtimeEl.textContent = `Runtime: ${movieInfo.runtime} minutes`;
+            displayEl.appendChild(runtimeEl);
+ 
+            var releaseDateEl = document.createElement("div");
+            releaseDateEl.textContent = `Released: ${movieInfo.year}`;
+            displayEl.appendChild(releaseDateEl);
+ 
+            var descriptionLabel = document.createElement("h3");
+            descriptionLabel.textContent = "Movie Summary:";
+            displayEl.appendChild(descriptionLabel);
+ 
+            var descriptionEl = document.createElement("p");
+            descriptionEl.textContent = movieInfo.description;
+            displayEl.appendChild(descriptionEl);
+    }
+    else if(choiceLs === 2){
+        var eventInfo = localStorage.getItem('eventInfoLs')
+        eventInfo=JSON.parse(eventInfo);
+        // display random choice to html page
+        var chooseAgainEl = document.createElement("p");
+        chooseAgainEl.textContent = "(Click again for another option.)";
+        displayEl.appendChild(chooseAgainEl);
+ 
+        var eventChoiceEl = document.createElement("h1");
+        eventChoiceEl.textContent = "Plan your next outing!";
+        displayEl.appendChild(eventChoiceEl);
+ 
+        var titleEl = document.createElement("h2");
+        titleEl.textContent = eventInfo.name;
+        displayEl.appendChild(titleEl);
+ 
+        // NEED TO GET JUST IMAGE URL FROM DATA TO USE
+        // var imageEl = document.createElement("img");
+        // imageEl.setAttribute("src", eventInfo.image);
+        // displayEl.appendChild(imageEl);
+ 
+        var startDateEl = document.createElement("p");
+        startDateEl.textContent = `Date: ${eventInfo.startDate}`;
+        displayEl.appendChild(startDateEl);
+        
+        var startTimeEl = document.createElement("p");
+        startTimeEl.textContent = `Start Time: ${eventInfo.startTime}`;
+        displayEl.appendChild(startTimeEl);
+        
+        var urlEl = document.createElement("a");
+        urlEl.textContent = "Click here to buy tickets now!";
+        urlEl.setAttribute("href", eventInfo.url);
+        displayEl.appendChild(urlEl);
+    }
+    else{
+        console.log("Hi How's it going")
+    }
+}
+renderLastChoice();
 // create a function to fetch staying home data for button click
 var homeClickHandler = function () {
 
@@ -43,7 +128,9 @@ var homeClickHandler = function () {
 				year: titleBody.year
 			}
 			console.log(movieInfo);
-
+			var movieInfoJs=JSON.stringify(movieInfo);
+			localStorage.setItem('movieInfoLs',movieInfoJs);
+			localStorage.setItem('choice',1);
 			displayEl.textContent = ""
 
 			// display random choice to html page
@@ -123,7 +210,10 @@ var goingOutClickHandler = function () {
 					startTime: randomEvent.dates.start.localTime
 				}
 				console.log(eventInfo);
-
+				
+                var eventInfoJs=JSON.stringify(eventInfo);
+                localStorage.setItem('eventInfoLs',eventInfoJs);
+                localStorage.setItem('choice',2);
 				displayEl.textContent = ""
 
 				// display random choice to html page
