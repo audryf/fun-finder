@@ -3,6 +3,9 @@ var buttonsEl = document.querySelector("#button-div");
 var homeBtnEl = document.querySelector("#home");
 var outBtnEl = document.querySelector("#out");
 var displayEl = document.querySelector("#display-choice");
+var loadingEl = document.querySelector("#loading");
+
+
 function renderLastChoice(){
     var choiceLs= localStorage.getItem('choice');
     choiceLs= parseInt(JSON.parse(choiceLs));
@@ -89,9 +92,11 @@ function renderLastChoice(){
     }
 }
 renderLastChoice();
+
 // create a function to fetch staying home data for button click
 var homeClickHandler = function () {
-
+	displayEl.innerHTML = ""
+	loadingEl.classList.toggle("visibility")
 	// create a random number between 1 and 9 to use as random page generated in watchmode data (that's how many pages are shown with this type=movies)
 	var randomPage = Math.floor((Math.random() * 9) + 1)
 
@@ -114,8 +119,11 @@ var homeClickHandler = function () {
 		})
 		.then(function (titleResponse) {
 			if (titleResponse.ok) {
+				loadingEl.classList.toggle("visibility");
 				return titleResponse.json()
+				
 			}
+			
 		})
 		.then(function (titleBody) {
 			// console.log(titleBody)
@@ -180,18 +188,21 @@ var homeClickHandler = function () {
 
 // create a function for going out data for button click
 var goingOutClickHandler = function () {
-
+	displayEl.innerHTML = ""
+	loadingEl.classList.toggle("visibility")
 	// get users current location
 	navigator.geolocation.getCurrentPosition((position) => {
+		
 		var latitude = position.coords.latitude;
 		// console.log(latitude);
 		var longitude = position.coords.longitude;
 		// console.log(longitude);
-
+		
 		// get data from ticketmaster for name, description, image, cost, and location
 		fetch(`https://app.ticketmaster.com/discovery/v2/suggest?latlong=${latitude},${longitude}&apikey=YxRbBqJ0OORNTA5ARkyi5R1uZSTtZHdH`)
 			.then(function (response) {
 				if (response.ok) {
+					
 					return response.json()
 				}
 			})
@@ -210,7 +221,7 @@ var goingOutClickHandler = function () {
 					startTime: randomEvent.dates.start.localTime
 				}
 				console.log(eventInfo);
-				
+				loadingEl.classList.toggle("visibility");
                 var eventInfoJs=JSON.stringify(eventInfo);
                 localStorage.setItem('eventInfoLs',eventInfoJs);
                 localStorage.setItem('choice',2);
